@@ -1,0 +1,13 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/public_html/client_projects/cpb/
+    - export SOURCEPATH=/
+    - /bin/cp -R $SOURCEPATH* $DEPLOYPATH
+    - /bin/chmod 755 $DEPLOYPATH
+    - /bin/chmod 644 $DEPLOYPATH*.php
+    - /bin/chmod 644 $DEPLOYPATH*.html
+    - /bin/chmod 644 $DEPLOYPATH*.txt
+    - /bin/chmod 755 $DEPLOYPATHwp-admin/
+    - /bin/chmod 755 $DEPLOYPATHwp-includes/
+    - /bin/chmod 755 $DEPLOYPATHwp-content/
