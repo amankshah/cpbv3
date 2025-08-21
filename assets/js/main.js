@@ -78,14 +78,21 @@
         }
       });
 
-      // Testimonials swiper
+      // Testimonials swiper - normal carousel with fixed height
       const testi = new Swiper('.testi-swiper', {
         slidesPerView: 1,
         spaceBetween: 24,
-        autoHeight: true,
+        autoHeight: false,
+        loop: true,
+        speed: 600,
+        effect: 'slide',
         navigation: {
           prevEl: '.testi-prev',
           nextEl: '.testi-next'
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true
         }
       });
     }
