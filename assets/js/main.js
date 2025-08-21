@@ -50,8 +50,8 @@
     // Services carousel (Swiper)
     if (window.Swiper) {
       const swiper = new Swiper('.services-swiper', {
-        slidesPerView: 1.25,
-        spaceBetween: 16,
+        slidesPerView: 'auto',
+        spaceBetween: 20,
         centeredSlides: true,
         loop: true,
         speed: 500,
@@ -60,9 +60,11 @@
           nextEl: '.services-next'
         },
         breakpoints: {
-          576: { slidesPerView: 1.5 },
-          768: { slidesPerView: 2.25 },
-          992: { slidesPerView: 3 },
+          320: { slidesPerView: 1.2, spaceBetween: 16 },
+          576: { slidesPerView: 1.5, spaceBetween: 16 },
+          768: { slidesPerView: 2.5, spaceBetween: 18 },
+          992: { slidesPerView: 3, spaceBetween: 20 },
+          1200: { slidesPerView: 5, spaceBetween: 24 },
         },
         on: {
           // force reflow of transforms for smooth ladder transitions
@@ -101,6 +103,32 @@
         item.addEventListener('click', () => activate(item));
       });
     }
+
+    // Service card flip functionality
+    document.addEventListener('click', (e) => {
+      if (e.target.matches('[data-flip-card]')) {
+        e.preventDefault();
+        const card = e.target.closest('.service-card');
+        if (card) {
+          card.classList.add('flipped');
+        }
+      }
+      
+      if (e.target.matches('[data-flip-back]')) {
+        e.preventDefault();
+        const card = e.target.closest('.service-card');
+        if (card) {
+          card.classList.remove('flipped');
+        }
+      }
+    });
+
+    // Auto flip back on mouse leave
+    document.addEventListener('mouseleave', (e) => {
+      if (e.target.matches('.service-card.flipped')) {
+        e.target.classList.remove('flipped');
+      }
+    }, true);
 
     // Inline YouTube player: replace thumbnail with iframe on click
     const playTargets = document.querySelectorAll('.play-btn');
