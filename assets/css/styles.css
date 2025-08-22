@@ -152,6 +152,10 @@ footer a.link-secondary:hover {
 .media-thumb {
   border: 0;
   background: #e9ecef;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  position: relative;
 }
 
 .img-cover {
@@ -409,19 +413,7 @@ footer a.link-secondary:hover {
     border-width: 8px 0 8px 10px;
   }
   
-  /* Testimonials mobile adjustments */
-  .testi-swiper {
-    height: 350px;
-  }
-  
-  .testi-swiper .swiper-slide .row {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .testi-swiper .swiper-slide .col-lg-6:last-child {
-    margin-top: 1rem;
-  }
+  /* Testimonials mobile adjustments - now handled in comprehensive responsive styles below */
 }
 
 /* Hide overlays when playing */
@@ -479,6 +471,41 @@ footer a.link-secondary:hover {
   height: 16px;
   border-radius: 2px;
   background: var(--color-primary);
+}
+
+/* Why section image styling */
+.why-section-image {
+  background-color: #e9ecef;
+  transition: transform 0.3s ease, ;
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+.why-section-image:hover {
+  transform: translateY(-5px) scale(1.05);
+  border-radius: 1rem;
+  
+  
+}
+
+.why-section-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: inherit;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 0.3s ease;
+  z-index: 1;
+}
+
+.why-section-image:hover::before {
+  transform: scale(1.1);
+  border-radius: 1rem;
 }
 
 /* Why accordion styling to resemble vertical markers */
@@ -572,11 +599,11 @@ footer a.link-secondary:hover {
 .testi-swiper {
   overflow: hidden;
   padding-bottom: 2rem;
-  height: 500px;
+  min-height: 400px;
 }
 
 .testi-swiper .swiper-wrapper {
-  height: 100%;
+  min-height: 400px;
 }
 
 .testi-swiper .swiper-slide {
@@ -586,13 +613,13 @@ footer a.link-secondary:hover {
   z-index: auto !important;
   width: auto !important;
   pointer-events: auto !important;
-  height: 100%;
+  min-height: 400px;
   display: flex;
   align-items: center;
 }
 
 .testi-swiper .swiper-slide .row {
-  height: 100%;
+  min-height: 400px;
   align-items: center;
 }
 
@@ -600,6 +627,172 @@ footer a.link-secondary:hover {
   font-size: clamp(1rem, 2.4vw, 1.125rem);
   line-height: 1.8;
   font-weight: 500;
+}
+
+/* Responsive testimonial adjustments */
+@media (max-width: 1199px) {
+  .testi-swiper {
+    min-height: 350px;
+  }
+  
+  .testi-swiper .swiper-wrapper {
+    min-height: 350px;
+  }
+  
+  .testi-swiper .swiper-slide {
+    min-height: 350px;
+  }
+  
+  .testi-swiper .swiper-slide .row {
+    min-height: 350px;
+  }
+  
+  .testi-quote {
+    font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+  }
+}
+
+@media (max-width: 991px) {
+  .testi-swiper {
+    min-height: 300px;
+  }
+  
+  .testi-swiper .swiper-wrapper {
+    min-height: 300px;
+  }
+  
+  .testi-swiper .swiper-slide {
+    min-height: 300px;
+  }
+  
+  .testi-swiper .swiper-slide .row {
+    min-height: 300px;
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  
+  .testi-swiper .swiper-slide .col-lg-6:last-child {
+    margin-top: 0;
+  }
+  
+  .testi-quote {
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    line-height: 1.7;
+  }
+}
+
+@media (max-width: 767px) {
+  .testi-swiper {
+    min-height: 280px;
+    padding-bottom: 1.5rem;
+  }
+  
+  .testi-swiper .swiper-wrapper {
+    min-height: 280px;
+  }
+  
+  .testi-swiper .swiper-slide {
+    min-height: 280px;
+  }
+  
+  .testi-swiper .swiper-slide .row {
+    min-height: 280px;
+    gap: 1rem;
+  }
+  
+  .testi-quote {
+    font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+    line-height: 1.6;
+  }
+  
+  .testi-prev, .testi-next {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .testi-prev::before, .testi-next::before {
+    margin-top: 11px;
+  }
+  
+  .testi-prev::before {
+    border-width: 7px 8px 7px 0;
+  }
+  
+  .testi-next::before {
+    border-width: 7px 0 7px 8px;
+  }
+}
+
+@media (max-width: 575px) {
+  .testi-swiper {
+    min-height: 250px;
+  }
+  
+  .testi-swiper .swiper-wrapper {
+    min-height: 250px;
+  }
+  
+  .testi-swiper .swiper-slide {
+    min-height: 250px;
+  }
+  
+  .testi-swiper .swiper-slide .row {
+    min-height: 250px;
+    gap: 0.75rem;
+  }
+  
+  .testi-quote {
+    font-size: clamp(0.8rem, 1.6vw, 0.9rem);
+    line-height: 1.5;
+  }
+  
+  .testi-controls {
+    margin-top: 1rem;
+  }
+}
+
+/* Testimonial video responsive styling */
+.testimonial-video-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  background: #e9ecef;
+  border-radius: 0.75rem;
+}
+
+.testimonial-video-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.75rem;
+}
+
+/* Responsive adjustments for testimonial videos */
+@media (max-width: 991px) {
+  .testimonial-video-container {
+    padding-bottom: 66.67%; /* 3:2 aspect ratio for tablets */
+    margin: 0 auto;
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 767px) {
+  .testimonial-video-container {
+    padding-bottom: 75%; /* 4:3 aspect ratio for mobile */
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 575px) {
+  .testimonial-video-container {
+    padding-bottom: 100%; /* 1:1 aspect ratio for small mobile */
+    max-width: 300px;
+  }
 }
 
 /* Video overlay behavior - always visible */
