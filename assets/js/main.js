@@ -10,12 +10,18 @@
   };
 
   onReady(() => {
-    // Navbar shadow on scroll
+    // Navbar shadow and logo size on scroll
     const navbar = document.querySelector('.navbar');
+    const navbarLogo = document.querySelector('.navbar-logo');
     const updateNavbar = () => {
       if (!navbar) return;
       const scrolled = window.scrollY > 8;
       navbar.classList.toggle('navbar-scrolled', scrolled);
+      
+      // Update logo size based on scroll position
+      if (navbarLogo) {
+        navbarLogo.classList.toggle('scrolled', scrolled);
+      }
     };
     updateNavbar();
     window.addEventListener('scroll', updateNavbar, { passive: true });

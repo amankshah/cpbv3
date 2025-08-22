@@ -61,6 +61,16 @@ body {
   box-shadow: var(--shadow-sm);
 }
 
+/* Logo size transitions */
+.navbar-logo {
+  transition: height 0.3s ease, width 0.3s ease;
+}
+
+.navbar-logo.scrolled {
+  height: 32px !important;
+  width: auto;
+}
+
 /* Placeholders */
 .placeholder {
   border: 2px dashed var(--color-secondary);
@@ -237,7 +247,6 @@ footer a.link-secondary:hover {
   width: 100%;
   max-width: 350px;
   margin: 0 auto;
-  opacity: 0.7;
   z-index: 1;
   perspective: 1000px;
   height: 420px;
@@ -497,19 +506,27 @@ footer a.link-secondary:hover {
 
 .expert-gradient {
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.0) 40%, rgba(0,0,0,0.8) 100%);
+  background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0.0) 60%, rgba(0,0,0,0.8) 100%);
 }
 .expert-info {
-  position: absolute; left: 1rem; right: 1rem; bottom: 1rem; color: #fff;
+  position: absolute; left: 1rem; right: 1rem; top: 1rem; color: #fff;
+  z-index: 2;
 }
-.expert-name { font-weight: 700; }
-.expert-title { opacity: 0.8; }
+.expert-name { 
+  font-weight: 700; 
+  margin-bottom: 0.25rem;
+}
+.expert-title { 
+  opacity: 0.9; 
+  font-size: 0.875rem;
+}
 
 .expert-cta {
-  position: absolute; left: 1rem; bottom: 1rem;
+  position: absolute; right: 1rem; bottom: 1rem;
   width: 36px; height: 36px; border-radius: 50%;
   background: var(--color-primary);
   display: grid; place-items: center; text-decoration: none;
+  z-index: 2;
 }
 .expert-cta::before {
   content: '';
