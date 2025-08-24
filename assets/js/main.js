@@ -55,70 +55,11 @@
 
                   // Services carousel (Swiper)
         if (window.Swiper) {
-          const swiper = new Swiper('.services-swiper', {
-            slidesPerView: 3,
-            spaceBetween: 20,
-            centeredSlides: true,
-            loop: true,
-            speed: 500,
-            navigation: {
-              prevEl: '.services-prev',
-              nextEl: '.services-next'
-            },
-            breakpoints: {
-              320: { slidesPerView: 1, spaceBetween: 16 },
-              576: { slidesPerView: 1, spaceBetween: 16 },
-              768: { slidesPerView: 1, spaceBetween: 18 },
-              992: { slidesPerView: 3, spaceBetween: 20 },
-              1200: { slidesPerView: 3, spaceBetween: 24 },
-            },
-            on: {
-              // force reflow of transforms for smooth ladder transitions
-              slideChangeTransitionStart() {
-                document.querySelectorAll('.services-swiper .swiper-slide').forEach((el) => {
-                  // trigger CSS transitions reliably
-                  // eslint-disable-next-line no-unused-expressions
-                  el.offsetHeight;
-                });
-              }
-            }
-          });
-
-        // Additional Services carousel (Swiper)
-        const additionalServicesSwiper = new Swiper('.additional-services-swiper', {
-          slidesPerView: 3,
-          spaceBetween: 20,
-          centeredSlides: true,
-          loop: true,
-          speed: 500,
-          navigation: {
-            prevEl: '.additional-services-prev',
-            nextEl: '.additional-services-next'
-          },
-          breakpoints: {
-            320: { slidesPerView: 1, spaceBetween: 16 },
-            576: { slidesPerView: 1, spaceBetween: 16 },
-            768: { slidesPerView: 1, spaceBetween: 18 },
-            992: { slidesPerView: 3, spaceBetween: 20 },
-            1200: { slidesPerView: 3, spaceBetween: 24 },
-          },
-          on: {
-            // force reflow of transforms for smooth ladder transitions
-            slideChangeTransitionStart() {
-              document.querySelectorAll('.additional-services-swiper .swiper-slide').forEach((el) => {
-                // trigger CSS transitions reliably
-                // eslint-disable-next-line no-unused-expressions
-                el.offsetHeight;
-              });
-            }
-          }
-        });
-
       // Testimonials swiper - normal carousel with fixed height
       const testi = new Swiper('.testi-swiper', {
         slidesPerView: 1,
         spaceBetween: 24,
-        autoHeight: false,
+        autoHeight: true,
         loop: true,
         speed: 600,
         effect: 'slide',
@@ -129,6 +70,10 @@
         pagination: {
           el: '.swiper-pagination',
           clickable: true
+        },
+        on: {
+          resize(sw) { sw.updateAutoHeight(300); },
+          imagesReady(sw) { sw.updateAutoHeight(300); }
         }
       });
     }
@@ -327,6 +272,48 @@
       let currentIndex = 0;
       let isAnimating = false;
 
+      // Inject flip structure (front/back) if not present
+      cards.forEach((card) => {
+        if (!card.querySelector('.services3d-inner')) {
+          const img = card.querySelector('img');
+          const info = card.querySelector('.services3d-info');
+          const backTitle = card.getAttribute('data-back-title') || 'More details';
+          const backDesc = card.getAttribute('data-back-desc') || 'Click arrows or dots to browse other services.';
+
+          const inner = document.createElement('div');
+          inner.className = 'services3d-inner';
+
+          const front = document.createElement('div');
+          front.className = 'services3d-front';
+          const frontWrap = document.createElement('div');
+          frontWrap.style.position = 'absolute';
+          frontWrap.style.inset = '0';
+          if (img) front.appendChild(img);
+          if (info) front.appendChild(info);
+
+          const back = document.createElement('div');
+          back.className = 'services3d-back';
+          const backContent = document.createElement('div');
+          backContent.className = 'services3d-back-content';
+          const titleEl = document.createElement('div');
+          titleEl.className = 'services3d-back-title';
+          titleEl.textContent = backTitle;
+          const descEl = document.createElement('div');
+          descEl.className = 'services3d-back-desc';
+          descEl.textContent = backDesc;
+          backContent.appendChild(titleEl);
+          backContent.appendChild(descEl);
+          back.appendChild(backContent);
+
+          inner.appendChild(front);
+          inner.appendChild(back);
+
+          // Move existing non-inner children into inner handled above, now clear and attach
+          card.innerHTML = '';
+          card.appendChild(inner);
+        }
+      });
+
       // Exact implementation from card.html
       function updateCarousel(newIndex) {
         if (isAnimating) return;
@@ -370,11 +357,24 @@
         }, 800);
       }
 
+      // Flip behavior: only flip active (center) card on click; unflip on mouseleave
+      function flipActiveCard(indexToFlip) {
+        cards.forEach((card, i) => {
+          if (i === indexToFlip) {
+            card.classList.toggle('flipped');
+          } else {
+            card.classList.remove('flipped');
+          }
+        });
+      }
+
       // Arrow events (like card.html)
       if (leftArrow) {
         leftArrow.addEventListener("click", () => {
           console.log('Left arrow clicked');
           updateCarousel(currentIndex - 1);
+          // ensure flip reset on navigation
+          cards.forEach((c) => c.classList.remove('flipped'));
         });
       }
 
@@ -382,6 +382,7 @@
         rightArrow.addEventListener("click", () => {
           console.log('Right arrow clicked');
           updateCarousel(currentIndex + 1);
+          cards.forEach((c) => c.classList.remove('flipped'));
         });
       }
 
@@ -390,6 +391,7 @@
         dot.addEventListener("click", () => {
           console.log('Dot clicked:', i);
           updateCarousel(i);
+          cards.forEach((c) => c.classList.remove('flipped'));
         });
       });
 
@@ -397,7 +399,16 @@
       cards.forEach((card, i) => {
         card.addEventListener("click", () => {
           console.log('Card clicked:', i);
-          updateCarousel(i);
+          if (i === currentIndex) {
+            flipActiveCard(i);
+          } else {
+            updateCarousel(i);
+          }
+        });
+
+        // Flip back on mouse leave
+        card.addEventListener('mouseleave', () => {
+          card.classList.remove('flipped');
         });
       });
 
