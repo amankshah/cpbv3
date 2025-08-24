@@ -45,6 +45,39 @@
       yearEl.textContent = String(new Date().getFullYear());
     }
 
+    // Count-up on scroll for stats
+    const counters = Array.from(document.querySelectorAll('[data-count-to]'));
+    if (counters.length) {
+      const format = (n) => Math.floor(n).toLocaleString();
+      const animate = (el) => {
+        const to = Number(el.getAttribute('data-count-to')) || 0;
+        const suffix = el.getAttribute('data-suffix') || '';
+        const fromAttr = el.getAttribute('data-count-from');
+        const from = fromAttr !== null ? Number(fromAttr) : Math.max(0, to - 10);
+        const duration = 1200 + Math.min(1800, to * 20);
+        const start = performance.now();
+        const step = (now) => {
+          const p = Math.min(1, (now - start) / duration);
+          const val = from + (to - from) * p;
+          el.textContent = `${format(val)}${suffix}`;
+          if (p < 1) requestAnimationFrame(step); else el.textContent = `${format(to)}${suffix}`;
+        };
+        requestAnimationFrame(step);
+      };
+
+      const seen = new WeakSet();
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !seen.has(entry.target)) {
+            seen.add(entry.target);
+            animate(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+
+      counters.forEach((el) => io.observe(el));
+    }
+
     // Fallback for any missing expert images
     document.querySelectorAll('img[data-fallback]').forEach((img) => {
       img.addEventListener('error', () => {

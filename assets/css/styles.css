@@ -22,6 +22,8 @@
   --color-text: #212529; /* Body text */
   --color-background: #ffffff; /* Page background */
   --color-surface: #f8f9fa; /* Section background */
+  --fallback-surface: #ffffff; /* Friendly fallback surface color */
+  --video-overlay: rgba(255, 255, 255, 0.836); /* White overlay for background videos */
 
   --radius-base: 0.5rem;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -238,7 +240,7 @@ footer a.link-secondary:hover {
 
 .media-thumb {
   border: 0;
-  background: #e9ecef;
+  background: var(--fallback-surface, #ffffff);
   width: 100%;
   height: 0;
   padding-bottom: 56.25%; /* 16:9 aspect ratio */
@@ -613,8 +615,8 @@ footer a.link-secondary:hover {
   position: relative;
   width: 100%;
   height: 0;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
-  background: #e9ecef;
+  padding-bottom: 66.67%; /* 9:6 (3:2) aspect ratio */
+  background: var(--fallback-surface, #ffffff);
   border-radius: 0.75rem;
 }
 
@@ -631,7 +633,7 @@ footer a.link-secondary:hover {
 /* Responsive adjustments for testimonial videos */
 @media (max-width: 991px) {
   .testimonial-video-container {
-    padding-bottom: 66.67%; /* 3:2 aspect ratio for tablets */
+    padding-bottom: 66.67%; /* keep 3:2 on tablets */
     margin: 0 auto;
     max-width: 500px;
   }
@@ -639,14 +641,14 @@ footer a.link-secondary:hover {
 
 @media (max-width: 767px) {
   .testimonial-video-container {
-    padding-bottom: 75%; /* 4:3 aspect ratio for mobile */
+    padding-bottom: 66.67%; /* keep 3:2 on mobile */
     max-width: 400px;
   }
 }
 
 @media (max-width: 575px) {
   .testimonial-video-container {
-    padding-bottom: 100%; /* 1:1 aspect ratio for small mobile */
+    padding-bottom: 66.67%; /* keep 3:2 on small mobile */
     max-width: 300px;
   }
 }
@@ -747,7 +749,7 @@ footer a.link-secondary:hover {
 
 /* Scroll Carousel Section */
 .scroll-carousel-section {
-  background: #ffffff;
+  background: var(--fallback-surface, #ffffff);
   position: relative;
   overflow: visible;
   min-height: 100vh;
@@ -1190,7 +1192,7 @@ footer a.link-secondary:hover {
 
 .section-title {
   font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
+  font-weight: 500;
   color: #212529;
   margin-bottom: 1rem;
   font-family: 'Inter', sans-serif;
@@ -1367,6 +1369,18 @@ footer a.link-secondary:hover {
   border-radius: 20px;
   background: #000;
 }
+.visual-yt::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  /* Solid white overlay with a slightly stronger left fade to hide edges */
+  background:
+    linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 14%, rgba(255,255,255, var(--video-overlay, 0.6)) 24%),
+    var(--video-overlay, rgba(255,255,255,0.6));
+  pointer-events: none;
+  z-index: 1;
+}
 
 /* Make iframe cover full container while preserving aspect ratio */
 .visual-yt iframe {
@@ -1377,6 +1391,7 @@ footer a.link-secondary:hover {
   width: 120%;
   height: 120%;
   border: 0;
+  z-index: 0;
   pointer-events: none; /* background only */
 }
 
@@ -1536,7 +1551,7 @@ section {
 
 /* Specific section backgrounds */
 #why {
-  background: #f8f9fa;
+  background: var(--fallback-surface, #ffffff);
 }
 
 #experts {
@@ -1544,7 +1559,7 @@ section {
 }
 
 #testimonials {
-  background: #f8f9fa;
+  background: var(--fallback-surface, #ffffff);
 }
 
 #faq {
