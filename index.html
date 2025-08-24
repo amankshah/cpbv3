@@ -30,7 +30,49 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-3">
               <li class="nav-item"><a class="nav-link active" aria-current="page" href="#home">Home</a></li>
               <li class="nav-item"><a class="nav-link" href="#about-us">About Us</a></li>
-              <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
+              <li class="nav-item dropdown position-static">
+                <a class="nav-link dropdown-toggle" href="#" id="megaBlog" role="button" data-bs-toggle="dropdown" aria-expanded="false">Blog</a>
+                <div class="dropdown-menu border-0 shadow w-100 py-4 mega-dropdown" aria-labelledby="megaBlog">
+                  <div class="container">
+                    <div class="row g-4 align-items-stretch">
+                      <div class="col-12 col-lg-8">
+                        <div class="row g-3">
+                          <div class="col-12 col-md-6">
+                            <div class="small text-secondary mb-2">Resources</div>
+                            <ul class="list-unstyled mega-links m-0">
+                              <li><a href="#" class="mega-link"><span class="mega-icon"><i class="bi bi-journal-text"></i></span><span><strong>Blog</strong><small class="text-secondary d-block">Latest industry news, updates, and articles.</small></span></a></li>
+                              <li><a href="#" class="mega-link"><span class="mega-icon"><i class="bi bi-chat-square-quote"></i></span><span><strong>Customer stories</strong><small class="text-secondary d-block">How customers are making big changes.</small></span></a></li>
+                              <li><a href="#" class="mega-link"><span class="mega-icon"><i class="bi bi-play-circle"></i></span><span><strong>Video tutorials</strong><small class="text-secondary d-block">Feature walk-throughs and techniques.</small></span></a></li>
+                              <li><a href="#" class="mega-link"><span class="mega-icon"><i class="bi bi-file-earmark-text"></i></span><span><strong>Documentation</strong><small class="text-secondary d-block">Everything you need, written by our team.</small></span></a></li>
+                            </ul>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="small text-secondary mb-2">Company</div>
+                            <ul class="list-unstyled mega-links m-0">
+                              <li><a href="#" class="mega-link"><span class="mega-icon"><i class="bi bi-people"></i></span><span><strong>About us</strong><small class="text-secondary d-block">Our story, mission, and roadmap.</small></span></a></li>
+                              <li><a href="#" class="mega-link"><span class="mega-icon"><i class="bi bi-bullhorn"></i></span><span><strong>Press</strong><small class="text-secondary d-block">News, releases, and resources.</small></span></a></li>
+                              <li><a href="#" class="mega-link"><span class="mega-icon"><i class="bi bi-briefcase"></i></span><span><strong>Careers</strong><small class="text-secondary d-block">We’re hiring—join our team!</small></span></a></li>
+                              <li><a href="#" class="mega-link"><span class="mega-icon"><i class="bi bi-shield-check"></i></span><span><strong>Legal</strong><small class="text-secondary d-block">Terms, privacy, and cookies.</small></span></a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-lg-4">
+                        <div class="card h-100 border-0 mega-panel">
+                          <div class="ratio ratio-16x9 rounded-3 overflow-hidden">
+                            <img src="/assets/images/shahnaz_in_a_webinar.png" alt="Update" class="w-100 h-100" style="object-fit: cover;">
+                          </div>
+                          <div class="card-body">
+                            <div class="small text-secondary mb-1">Version 8.2</div>
+                            <h6 class="mb-1">We’ve just released an update!</h6>
+                            <p class="small text-secondary mb-0">Learn about our new UI and features.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
               <li class="nav-item"><a class="nav-link" href="#webinars">Webinar & Podcasts</a></li>
               
                              <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
@@ -44,7 +86,8 @@
     </header>
 
     <!-- Hero + Webinars -->
-    <section id="home" class="section hero-slim bg-surface">
+    <!-- <section id="home" class="section hero-slim bg-surface"> -->
+    <section id="home" class="section hero-slim ">
       <div class="container">
         <div class="text-center mb-4">
           <h1 class="hero-title">Your Journey, Our Expertise.</h1>

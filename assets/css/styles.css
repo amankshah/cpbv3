@@ -94,6 +94,26 @@ body {
 .navbar.fixed-top {
   transition: box-shadow 0.2s ease, padding 0.2s ease;
 }
+.mega-dropdown { background: #fff; }
+.mega-card img { height: 160px; object-fit: cover; border-top-left-radius: .5rem; border-top-right-radius: .5rem; }
+.mega-card { transition: transform .2s ease, box-shadow .2s ease; border-radius: .5rem; }
+.mega-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,0.08); }
+.mega-links .mega-link { display: grid; grid-template-columns: 36px 1fr; gap: .75rem; align-items: start; padding: .6rem .75rem; border-radius: .5rem; text-decoration: none; color: inherit; }
+.mega-links .mega-link:hover { background: #f8fafc; }
+.mega-links .mega-icon { width: 36px; height: 36px; border-radius: .5rem; display: grid; place-items: center; background: #f1f5f9; color: #334155; }
+.mega-panel .card-body { text-align: left; }
+/* Ensure mega menu is centered under navbar container, not aligned to trigger */
+.navbar .dropdown.position-static .dropdown-menu.mega-dropdown {
+  left: 0 !important;
+  right: 0 !important;
+  transform: none !important;
+}
+
+/* Open mega menu on hover for lg+ screens */
+@media (min-width: 992px) {
+  .navbar .dropdown:hover > .dropdown-menu { display: block; }
+  .navbar .dropdown-toggle::after { display: none; }
+}
 
 .navbar.navbar-scrolled {
   box-shadow: var(--shadow-sm);
