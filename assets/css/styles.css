@@ -1702,5 +1702,119 @@ section {
   z-index: 1;
 }
 
+/* 3D Services Showcase (Inspired by card.html) */
+.services-3d-section .container { position: relative; }
+
+.services3d-container {
+  width: 100%;
+  max-width: 1200px;
+  height: 480px;
+  position: relative;
+  margin: 0 auto;
+  perspective: 1000px;
+}
+
+.services3d-track {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.services3d-card {
+  position: absolute;
+  width: 280px;
+  height: 380px;
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+}
+
+.services3d-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Positions inspired by card.html */
+.services3d-card.center { z-index: 10; transform: scale(1.1) translateZ(0); }
+.services3d-card.left-2 { z-index: 1; transform: translateX(-400px) scale(0.8) translateZ(-300px); opacity: 0.7; }
+.services3d-card.left-1 { z-index: 5; transform: translateX(-200px) scale(0.9) translateZ(-100px); opacity: 0.9; }
+.services3d-card.right-1 { z-index: 5; transform: translateX(200px) scale(0.9) translateZ(-100px); opacity: 0.9; }
+.services3d-card.right-2 { z-index: 1; transform: translateX(400px) scale(0.8) translateZ(-300px); opacity: 0.7; }
+.services3d-card.hidden { opacity: 0; pointer-events: none; }
+
+/* Info overlay */
+.services3d-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
+  color: #fff;
+  padding: 1rem 1rem 1.25rem;
+}
+
+.services3d-name { font-weight: 700; font-family: 'Poppins', sans-serif; }
+.services3d-role { opacity: 0.9; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+/* Arrows */
+.services3d-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #ffffffcc;
+  color: #000;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  transition: all 0.3s ease;
+  font-size: 1.5rem;
+  border: none;
+  outline: none;
+  box-shadow: var(--shadow-sm);
+}
+
+.services3d-arrow:hover { background: var(--color-primary); color: #fff; }
+.services3d-arrow.left { left: 10px; padding-right: 2px; }
+.services3d-arrow.right { right: 10px; padding-left: 2px; }
+
+/* Dots */
+.services3d-dots { display: flex; justify-content: center; gap: 10px; margin-top: 24px; }
+.services3d-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: rgba(92, 183, 71, 0.25);
+  border: none; cursor: pointer; transition: all 0.3s ease;
+}
+.services3d-dot.active { background: var(--color-primary); transform: scale(1.15); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .services3d-container { height: 380px; }
+  .services3d-card { width: 220px; height: 300px; }
+  .services3d-card.left-2 { transform: translateX(-260px) scale(0.8) translateZ(-300px); }
+  .services3d-card.left-1 { transform: translateX(-140px) scale(0.9) translateZ(-100px); }
+  .services3d-card.right-1 { transform: translateX(140px) scale(0.9) translateZ(-100px); }
+  .services3d-card.right-2 { transform: translateX(260px) scale(0.8) translateZ(-300px); }
+}
+
+/* 3D Services Showcase UX tweaks */
+.services3d-container { cursor: grab; }
+.services3d-container.dragging, .services3d-container:active { cursor: grabbing; }
+.services3d-card img { user-select: none; -webkit-user-drag: none; }
+
 
 

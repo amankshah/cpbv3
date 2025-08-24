@@ -301,6 +301,150 @@
 
           // Initialize vertical scroll features
       initVerticalScrollFeatures();
+
+    // 3D Services Showcase (inspired by card.html)
+    const initServices3D = () => {
+      const container = document.querySelector('#services-3d');
+      if (!container) {
+        console.log('3D Services container not found');
+        return;
+      }
+
+      const cards = container.querySelectorAll('.services3d-card');
+      const dots = container.querySelectorAll('.services3d-dot');
+      const leftArrow = container.querySelector('.services3d-arrow.left');
+      const rightArrow = container.querySelector('.services3d-arrow.right');
+
+      console.log('3D Services elements:', {
+        cards: cards.length,
+        dots: dots.length,
+        leftArrow: !!leftArrow,
+        rightArrow: !!rightArrow
+      });
+
+      if (!cards.length) return;
+
+      let currentIndex = 0;
+      let isAnimating = false;
+
+      // Exact implementation from card.html
+      function updateCarousel(newIndex) {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        currentIndex = (newIndex + cards.length) % cards.length;
+
+        cards.forEach((card, i) => {
+          const offset = (i - currentIndex + cards.length) % cards.length;
+
+          card.classList.remove(
+            "center",
+            "left-1", 
+            "left-2",
+            "right-1",
+            "right-2",
+            "hidden"
+          );
+
+          if (offset === 0) {
+            card.classList.add("center");
+          } else if (offset === 1) {
+            card.classList.add("right-1");
+          } else if (offset === 2) {
+            card.classList.add("right-2");
+          } else if (offset === cards.length - 1) {
+            card.classList.add("left-1");
+          } else if (offset === cards.length - 2) {
+            card.classList.add("left-2");
+          } else {
+            card.classList.add("hidden");
+          }
+        });
+
+        dots.forEach((dot, i) => {
+          dot.classList.toggle("active", i === currentIndex);
+        });
+
+        setTimeout(() => {
+          isAnimating = false;
+        }, 800);
+      }
+
+      // Arrow events (like card.html)
+      if (leftArrow) {
+        leftArrow.addEventListener("click", () => {
+          console.log('Left arrow clicked');
+          updateCarousel(currentIndex - 1);
+        });
+      }
+
+      if (rightArrow) {
+        rightArrow.addEventListener("click", () => {
+          console.log('Right arrow clicked');
+          updateCarousel(currentIndex + 1);
+        });
+      }
+
+      // Dot events (like card.html)
+      dots.forEach((dot, i) => {
+        dot.addEventListener("click", () => {
+          console.log('Dot clicked:', i);
+          updateCarousel(i);
+        });
+      });
+
+      // Card click events (like card.html)
+      cards.forEach((card, i) => {
+        card.addEventListener("click", () => {
+          console.log('Card clicked:', i);
+          updateCarousel(i);
+        });
+      });
+
+      // Keyboard events (like card.html)
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") {
+          updateCarousel(currentIndex - 1);
+        } else if (e.key === "ArrowRight") {
+          updateCarousel(currentIndex + 1);
+        }
+      });
+
+      // Touch swipe (like card.html)
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      container.addEventListener("touchstart", (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      });
+
+      container.addEventListener("touchend", (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      });
+
+      function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+
+        if (Math.abs(diff) > swipeThreshold) {
+          if (diff > 0) {
+            updateCarousel(currentIndex + 1);
+          } else {
+            updateCarousel(currentIndex - 1);
+          }
+        }
+      }
+
+      // Initialize carousel (like card.html)
+      updateCarousel(0);
+
+      console.log('3D Services carousel initialized');
+    };
+
+    // Initialize 3D services showcase when DOM is ready
+    initServices3D();
+
   });
 
   // Expose a simple theme updater so you can change colors later from JS
