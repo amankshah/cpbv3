@@ -456,6 +456,8 @@
     // Initialize 3D services showcase when DOM is ready
     initServices3D();
 
+    // (Removed old reveal animation for replaced HOW WE DO IT section)
+
   });
 
   // Expose a simple theme updater so you can change colors later from JS

@@ -164,6 +164,30 @@ footer a.link-secondary:hover {
   color: var(--color-primary) !important;
 }
 
+/* HOW WE DO IT? Alternating timeline (years replaced by headings) */
+.timeline { position: relative; margin-top: 1.5rem; }
+.timeline:before { content: ''; position: absolute; top: 10px; left: 50%; margin-left: -1px; width: 2px; height: 97%; background-color: #cad2d6; }
+.timeline__block { position: relative; margin: 42px 0; padding-left: 15px; }
+.timeline__block:after { content: ""; display: table; clear: both; }
+.timeline__midpoint { position: absolute; top: 6px; left: 50%; margin-left: -8px; width: 16px; height: 16px; border-radius: 50%; background-color: #5CB747; }
+.timeline__midpoint:before { content: ""; position: absolute; top: 50%; left: 16px; width: 40px; border-top: 1px solid #c5e1ec; }
+.timeline__midpoint:after { content: ""; position: absolute; top: 50%; right: 16px; width: 40px; border-top: 1px solid #c5e1ec; }
+.timeline__content { position: relative; width: 50%; }
+.timeline__content .timeline__heading { color: #5CB747; font-weight: 700; margin-bottom: .25rem; }
+.timeline__content--left { float: left; text-align: right; padding-right: 25px; }
+.timeline__content--right { float: right; left: 11%; }
+.timeline__text--left { text-align: right; }
+.timeline__text--right { text-align: left; }
+
+@media (max-width: 991.98px) {
+  .timeline:before { left: 8px; margin-left: 0; }
+  .timeline__midpoint { left: 8px; margin-left: -8px; }
+  .timeline__midpoint:before, .timeline__midpoint:after { display: none; }
+  .timeline__content { width: auto; margin-left: 28px; float: none; text-align: left; padding-right: 0; }
+  .timeline__content--right { left: 0; }
+  .timeline__text--left, .timeline__text--right { text-align: left; }
+}
+
 /* Utilities */
 .text-accent { color: var(--color-accent) !important; }
 .bg-accent { background-color: var(--color-accent) !important; }
