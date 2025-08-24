@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vertical Carousel</title>
+    <!--Google Fonts and Icons-->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        background: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat fixed;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+      .center {
+        width: 100%;
+      }
+      .top {
+        width: 100%;
+        height: 100vh;
+        font-family: poppins;
+        font-size: 100px;
+        color: white;
+        text-shadow: 3px 3px rgba(255, 255, 255, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .carousel {
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        justify-content: center;
+        position: relative;
+      }
+      .left {
+        flex-basis: 50%;
+        height: fit-content;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        box-sizing: border-box;
+        z-index: 10;
+      }
+      .left-item {
+        width: 100%;
+        height: 100vh;
+        box-sizing: border-box;
+        padding: 0 60px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+      }
+      .title {
+        font-size: 110px;
+        font-family: poppins;
+        font-weight: 600;
+        color: white;
+      }
+      .text {
+        font-size: 18px;
+        font-family: poppins;
+        font-weight: 300;
+        color: white;
+      }
+      .right {
+        position: sticky;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        flex-basis: 50%;
+      }
+      .item {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        opacity: 0;
+        transition: 0.25s;
+        transform: scale(0.3);
+      }
+      .item.active {
+        transform: scale(1);
+        opacity: 1;
+      }
+      .item img {
+        width: 350px;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      }
+      .item button {
+        background: white;
+        padding: 15px 40px;
+        font-family: poppins;
+        font-size: 16px;
+        font-weight: 600;
+        color: black;
+        outline: none;
+        border: none;
+        border-radius: 7mm;
+        margin-top: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .item button:hover {
+        background: #f0f0f0;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+      .item::before {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100vh;
+        backdrop-filter: blur(6px) saturate(200%);
+        -webkit-backdrop-filter: blur(6px) saturate(200%);
+        background: rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(209, 213, 219, 0.3);
+        z-index: -1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="center">
+      <div class="top">Solar System</div>
+      <div class="carousel">
+        <div class="left">
+          <div class="left-item">
+            <div class="title">Sun</div>
+            <div class="text">
+              The Sun is the star at the center of the Solar System. It is a massive ball of hydrogen and helium that provides light and heat to all the planets through nuclear fusion.
+            </div>
+          </div>
+
+          <div class="left-item">
+            <div class="title">Moon</div>
+            <div class="text">
+              Earth's only natural satellite, the Moon orbits our planet and influences tides. Its surface is covered in craters, mountains, and vast plains called maria.
+            </div>
+          </div>
+
+          <div class="left-item">
+            <div class="title">Earth</div>
+            <div class="text">
+              Our home planet, Earth is the third planet from the Sun and the only known planet with life. It has a diverse environment with oceans, continents, and a protective atmosphere.
+            </div>
+          </div>
+
+          <div class="left-item">
+            <div class="title">Mercury</div>
+            <div class="text">
+              The smallest and innermost planet in the Solar System, Mercury is a rocky world with extreme temperature variations, ranging from -180°C to 430°C.
+            </div>
+          </div>
+
+          <div class="left-item">
+            <div class="title">Venus</div>
+            <div class="text">
+              Often called Earth's sister planet, Venus is similar in size but has a thick atmosphere of carbon dioxide that creates a runaway greenhouse effect, making it the hottest planet.
+            </div>
+          </div>
+
+          <div class="left-item">
+            <div class="title">Mars</div>
+            <div class="text">
+              The Red Planet, Mars has a thin atmosphere and surface features including the largest volcano in the Solar System, Olympus Mons, and the vast Valles Marineris canyon system.
+            </div>
+          </div>
+
+          <div class="left-item">
+            <div class="title">Jupiter</div>
+            <div class="text">
+              The largest planet in our Solar System, Jupiter is a gas giant with a Great Red Spot storm that has been raging for centuries. It has 79 known moons, including the four Galilean moons.
+            </div>
+          </div>
+
+          <div class="left-item">
+            <div class="title">Saturn</div>
+            <div class="text">
+              Famous for its spectacular ring system, Saturn is another gas giant. Its rings are made of ice particles, rock, and dust, creating one of the most beautiful sights in the Solar System.
+            </div>
+          </div>
+
+          <div class="left-item">
+            <div class="title">Uranus</div>
+            <div class="text">
+              The seventh planet from the Sun, Uranus is unique because it rotates on its side. It's an ice giant with a blue-green color due to methane in its atmosphere.
+            </div>
+          </div>
+
+          <div class="left-item">
+            <div class="title">Neptune</div>
+            <div class="text">
+              The farthest planet from the Sun, Neptune is another ice giant with the strongest winds in the Solar System, reaching speeds of up to 2,100 km/h.
+            </div>
+          </div>
+        </div>
+        <div class="right">
+          <div class="item active">
+            <img src="https://images.unsplash.com/photo-1614314107768-6018060a1b6c?auto=format&fit=crop&w=800&q=80" alt="Sun" />
+            <button type="button">View More</button>
+          </div>
+
+          <div class="item">
+            <img src="https://images.unsplash.com/photo-1522030299830-16b8d3d0491b?auto=format&fit=crop&w=800&q=80" alt="Moon" />
+            <button type="button">View More</button>
+          </div>
+
+          <div class="item">
+            <img src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?auto=format&fit=crop&w=800&q=80" alt="Earth" />
+            <button type="button">View More</button>
+          </div>
+
+          <div class="item">
+            <img src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?auto=format&fit=crop&w=800&q=80" alt="Mercury" />
+            <button type="button">View More</button>
+          </div>
+
+          <div class="item">
+            <img src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?auto=format&fit=crop&w=800&q=80" alt="Venus" />
+            <button type="button">View More</button>
+          </div>
+
+          <div class="item">
+            <img src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?auto=format&fit=crop&w=800&q=80" alt="Mars" />
+            <button type="button">View More</button>
+          </div>
+
+          <div class="item">
+            <img src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?auto=format&fit=crop&w=800&q=80" alt="Jupiter" />
+            <button type="button">View More</button>
+          </div>
+
+          <div class="item">
+            <img src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?auto=format&fit=crop&w=800&q=80" alt="Saturn" />
+            <button type="button">View More</button>
+          </div>
+
+          <div class="item">
+            <img src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?auto=format&fit=crop&w=800&q=80" alt="Uranus" />
+            <button type="button">View More</button>
+          </div>
+
+          <div class="item">
+            <img src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?auto=format&fit=crop&w=800&q=80" alt="Neptune" />
+            <button type="button">View More</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let items = document.querySelectorAll(".item");
+      let carousel = document.querySelector(".carousel");
+
+      document.addEventListener("scroll", () => {
+        let proportion =
+          carousel.getBoundingClientRect().top / window.innerHeight;
+
+        let index = Math.ceil(-1 * (proportion + 0.5));
+
+        items.forEach((item, i) => {
+          item.className = "item";
+          if (i == index) {
+            item.className = "item active";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

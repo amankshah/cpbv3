@@ -26,6 +26,7 @@ html, body {
 body {
   color: var(--color-text);
   background-color: var(--color-background);
+  overflow-x: hidden;
 }
 
 .bg-surface {
@@ -221,6 +222,11 @@ footer a.link-secondary:hover {
 .services-section {
   padding-top: 3.5rem;
   padding-bottom: 3.5rem;
+}
+
+/* Additional Services section - inherits all services-section styles */
+#additional-services {
+  margin-top: 2rem;
 }
 
 .services-section .container { position: relative; z-index: 2; }
@@ -421,7 +427,8 @@ footer a.link-secondary:hover {
 [data-ytid].is-playing .media-caption,
 [data-ytid].is-playing .play-btn { display: none !important; }
 
-.services-prev, .services-next {
+.services-prev, .services-next,
+.additional-services-prev, .additional-services-next {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -437,7 +444,11 @@ footer a.link-secondary:hover {
 .services-prev { left: 0.25rem; }
 .services-next { right: 0.25rem; }
 
-.services-prev::before, .services-next::before {
+.additional-services-prev { left: 0.25rem; }
+.additional-services-next { right: 0.25rem; }
+
+.services-prev::before, .services-next::before,
+.additional-services-prev::before, .additional-services-next::before {
   content: '';
   display: block;
   width: 0; height: 0;
@@ -446,12 +457,14 @@ footer a.link-secondary:hover {
   margin-top: 12px;
 }
 
-.services-prev::before {
+.services-prev::before,
+.additional-services-prev::before {
   border-width: 8px 10px 8px 0;
   border-color: transparent #00000080 transparent transparent;
 }
 
-.services-next::before {
+.services-next::before,
+.additional-services-next::before {
   border-width: 8px 0 8px 10px;
   border-color: transparent transparent transparent #00000080;
 }
@@ -878,7 +891,7 @@ footer a.link-secondary:hover {
 
 /* Footer dark */
 .footer-dark {
-  background: #0f141a;
+  background: #14171F;
 }
 .footer-dark .text-footer { color: #94a3b8; }
 .footer-dark .footer-divider { border: 0; border-top: 1px solid rgba(148,163,184,0.2); }
@@ -887,6 +900,807 @@ footer a.link-secondary:hover {
 .footer-links a:hover { color: #fff; }
 .social-btn { width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(148,163,184,0.15); color: #cbd5e1; }
 .social-btn:hover { color: #fff; background: rgba(148,163,184,0.25); }
+
+
+/* Scroll Carousel Section */
+.scroll-carousel-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  position: relative;
+  overflow: visible;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+  margin: 2rem 0;
+}
+
+.scroll-carousel-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+.scroll-carousel-section .row {
+  align-items: stretch;
+  min-height: 80vh;
+}
+
+.scroll-carousel-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(92, 183, 71, 0.05) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(32, 201, 151, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.scroll-carousel-content {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 2rem 0;
+  position: relative;
+  z-index: 1;
+  min-height: 400px;
+}
+
+/* Left Panel Image */
+.scroll-carousel-left-image {
+  margin-top: 2rem;
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+
+.left-image-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.left-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.left-image.active {
+  opacity: 1;
+}
+
+.scroll-carousel-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.scroll-carousel-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #5CB747;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.scroll-carousel-line {
+  width: 60px;
+  height: 2px;
+  background: #5CB747;
+}
+
+.scroll-carousel-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #6c757d;
+}
+
+.scroll-carousel-title {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  color: #212529;
+}
+
+.scroll-carousel-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #6c757d;
+  margin-bottom: 2rem;
+}
+
+.scroll-carousel-features {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1rem;
+  color: #212529;
+}
+
+.feature-item i {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  color: #5CB747;
+}
+
+/* Right Panel Scrollable Content */
+.scroll-carousel-container {
+  height: 600px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 1rem;
+  background: white;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  display: block;
+}
+
+/* Scroll Indicators */
+.scroll-indicators {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 10;
+}
+
+.scroll-indicator {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  opacity: 0.7;
+}
+
+.scroll-indicator:hover {
+  opacity: 1;
+  background: #5CB747;
+  color: white;
+  transform: scale(1.1);
+}
+
+.scroll-indicator i {
+  font-size: 1.2rem;
+}
+
+.scroll-indicator.scroll-up {
+  opacity: 0.3;
+}
+
+.scroll-indicator.scroll-down {
+  opacity: 0.7;
+}
+
+.scroll-indicator.scroll-up:hover {
+  opacity: 1;
+}
+
+.scroll-indicator.scroll-down:hover {
+  opacity: 1;
+}
+
+.scroll-carousel-track {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem;
+  height: max-content;
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.scroll-carousel-item {
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.scroll-carousel-item.active {
+  transform: scale(1.02);
+}
+
+.scroll-carousel-item.active .scroll-carousel-card {
+  box-shadow: 0 25px 50px rgba(92, 183, 71, 0.15);
+  border: 2px solid #5CB747;
+}
+
+.scroll-carousel-card {
+  background: white;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+  position: relative;
+  border: 2px solid transparent;
+}
+
+.scroll-carousel-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(92, 183, 71, 0.02) 0%, rgba(32, 201, 151, 0.02) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.scroll-carousel-card:hover::before {
+  opacity: 1;
+}
+
+.scroll-carousel-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.scroll-carousel-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Video Background */
+.carousel-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.carousel-fallback {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.scroll-carousel-card:hover .carousel-video {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+.scroll-carousel-card-content {
+  padding: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.scroll-carousel-card-content h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #212529;
+}
+
+.scroll-carousel-card-content p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #6c757d;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 991.98px) {
+  .scroll-carousel-section {
+    height: auto;
+    min-height: 100vh;
+  }
+  
+  .scroll-carousel-container {
+    height: 500px;
+    margin-top: 2rem;
+  }
+  
+  .scroll-carousel-content {
+    text-align: center;
+    padding: 1rem 0;
+  }
+  
+  .scroll-carousel-header {
+    justify-content: center;
+  }
+  
+  .scroll-carousel-title {
+    font-size: clamp(1.25rem, 4vw, 2rem);
+  }
+  
+  .left-image-container {
+    height: 250px;
+    margin: 0 auto;
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .scroll-carousel-container {
+    height: 400px;
+  }
+  
+  .scroll-carousel-track {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+  
+  .scroll-carousel-card-content {
+    padding: 1rem;
+  }
+  
+  .scroll-carousel-card-content h4 {
+    font-size: 1.1rem;
+  }
+  
+  .scroll-carousel-card-content p {
+    font-size: 0.9rem;
+  }
+  
+  .left-image-container {
+    height: 200px;
+  }
+}
+
+/* Debug and ensure visibility */
+.scroll-carousel-section * {
+  box-sizing: border-box;
+}
+
+.scroll-carousel-section .col-12,
+.scroll-carousel-section .col-lg-5,
+.scroll-carousel-section .col-lg-7 {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.scroll-carousel-left-image {
+  margin-top: 2rem;
+  position: relative;
+  z-index: 1;
+  display: block !important;
+  visibility: visible !important;
+}
+
+.left-image-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Vertical Scroll Features Section */
+.vertical-scroll-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  position: relative;
+  overflow: visible;
+  min-height: auto;
+  padding: 4rem 0 0 0;
+  margin: 0;
+  z-index: 1;
+}
+
+.vertical-scroll-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(92, 183, 71, 0.05) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(32, 201, 151, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Section Header */
+.section-header {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 1rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.section-subtitle {
+  font-size: 1.125rem;
+  color: #6c757d;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 400;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.vertical-scroll-container {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+/* Left Content Panel */
+.left-content-panel {
+  flex-basis: 50%;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  z-index: 10;
+}
+
+.content-item {
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 0 60px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  opacity: 1;
+  transition: all 0.25s ease;
+}
+
+.content-number {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  color: #5CB747;
+  margin-bottom: 1rem;
+  opacity: 0.8;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1;
+}
+
+.content-title {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 1.25rem;
+  line-height: 1.3;
+  font-family: 'Poppins', sans-serif;
+}
+
+.content-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #6c757d;
+  margin-bottom: 1.5rem;
+  max-width: 500px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 400;
+}
+
+.content-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.feature-point {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: #212529;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 500;
+}
+
+.feature-point i {
+  color: #5CB747;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+/* Right Visual Panel */
+.right-visual-panel {
+  position: sticky;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  flex-basis: 50%;
+}
+
+.visual-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  opacity: 0;
+  transition: 0.25s;
+  transform: scale(0.3);
+}
+
+.visual-item.active {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Video Background */
+.visual-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  z-index: 1;
+}
+
+.visual-fallback {
+  width: 350px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 20px;
+  /* box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); */
+  z-index: 2;
+  position: relative;
+}
+
+.visual-item::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100vh;
+  backdrop-filter: blur(6px) saturate(200%);
+  -webkit-backdrop-filter: blur(6px) saturate(200%);
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(209, 213, 219, 0.3);
+  z-index: -1;
+}
+
+/* YouTube background container for visual items */
+.visual-yt {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #000;
+}
+
+/* Make iframe cover full container while preserving aspect ratio */
+.visual-yt iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  border: 0;
+  pointer-events: none; /* background only */
+}
+
+/* Ensure fallback image sits above video */
+.visual-fallback { z-index: 2; position: relative; }
+
+/* Responsive Design */
+@media (max-width: 1199.98px) {
+  .vertical-scroll-container {
+    flex-direction: column;
+  }
+  
+  .left-content-panel {
+    order: 2;
+    flex-basis: 100%;
+  }
+  
+  .right-visual-panel {
+    order: 1;
+    height: 60vh;
+    position: relative;
+    flex-basis: 100%;
+  }
+  
+  .content-item {
+    height: auto;
+    min-height: 60vh;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  
+  .content-number {
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+  
+  .content-title {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+  }
+  
+  .content-description {
+    max-width: 100%;
+    font-size: 0.95rem;
+  }
+  
+  .visual-fallback {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .vertical-scroll-section {
+    padding: 2rem 0 0 0;
+    margin: 0;
+  }
+  
+  .section-header {
+    margin-bottom: 2rem;
+  }
+  
+  .section-title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+  }
+  
+  .section-subtitle {
+    font-size: 1rem;
+  }
+  
+  .content-item {
+    padding: 2rem 1rem;
+    min-height: 50vh;
+  }
+  
+  .content-number {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  }
+  
+  .content-title {
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  
+  .content-description {
+    font-size: 0.9rem;
+  }
+  
+  .feature-point {
+    font-size: 0.9rem;
+  }
+  
+  .right-visual-panel {
+    height: 50vh;
+  }
+  
+  .visual-fallback {
+    width: 250px;
+    height: 250px;
+  }
+}
+
+/* Ensure proper spacing between sections */
+.vertical-scroll-section {
+  scroll-margin-top: 80px;
+}
+
+.vertical-scroll-section + .section {
+  margin-top: 0;
+}
+
+/* Fix section spacing */
+.section {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure other sections are visible */
+#why, #experts, #testimonials, #faq {
+  position: relative;
+  z-index: 2;
+  background: #ffffff;
+}
+
+/* Global section fixes */
+body {
+  overflow-x: hidden;
+}
+
+/* Ensure all sections are visible */
+section {
+  position: relative;
+  z-index: 1;
+  background: #ffffff;
+}
+
+/* Specific section backgrounds */
+#why {
+  background: #f8f9fa;
+}
+
+#experts {
+  background: #ffffff;
+}
+
+#testimonials {
+  background: #f8f9fa;
+}
+
+#faq {
+  background: #ffffff;
+}
+
+/* Fix any potential overflow issues */
+.container, .container-fluid {
+  overflow: visible;
+}
+
+/* Ensure proper stacking context */
+.vertical-scroll-section {
+  z-index: 1;
+}
+
+/* Fix sticky positioning issues */
+.right-visual-panel {
+  z-index: 2;
+}
+
+/* Ensure content items don't overlap */
+.content-item {
+  position: relative;
+  z-index: 1;
+}
 
 
 

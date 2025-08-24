@@ -53,36 +53,66 @@
       }, { once: true });
     });
 
-    // Services carousel (Swiper)
-    if (window.Swiper) {
-      const swiper = new Swiper('.services-swiper', {
-        slidesPerView: 'auto',
-        spaceBetween: 20,
-        centeredSlides: true,
-        loop: true,
-        speed: 500,
-        navigation: {
-          prevEl: '.services-prev',
-          nextEl: '.services-next'
-        },
-        breakpoints: {
-          320: { slidesPerView: 1.2, spaceBetween: 16 },
-          576: { slidesPerView: 1.5, spaceBetween: 16 },
-          768: { slidesPerView: 2.5, spaceBetween: 18 },
-          992: { slidesPerView: 3, spaceBetween: 20 },
-          1200: { slidesPerView: 5, spaceBetween: 24 },
-        },
-        on: {
-          // force reflow of transforms for smooth ladder transitions
-          slideChangeTransitionStart() {
-            document.querySelectorAll('.services-swiper .swiper-slide').forEach((el) => {
-              // trigger CSS transitions reliably
-              // eslint-disable-next-line no-unused-expressions
-              el.offsetHeight;
-            });
+                  // Services carousel (Swiper)
+        if (window.Swiper) {
+          const swiper = new Swiper('.services-swiper', {
+            slidesPerView: 3,
+            spaceBetween: 20,
+            centeredSlides: true,
+            loop: true,
+            speed: 500,
+            navigation: {
+              prevEl: '.services-prev',
+              nextEl: '.services-next'
+            },
+            breakpoints: {
+              320: { slidesPerView: 1, spaceBetween: 16 },
+              576: { slidesPerView: 1, spaceBetween: 16 },
+              768: { slidesPerView: 1, spaceBetween: 18 },
+              992: { slidesPerView: 3, spaceBetween: 20 },
+              1200: { slidesPerView: 3, spaceBetween: 24 },
+            },
+            on: {
+              // force reflow of transforms for smooth ladder transitions
+              slideChangeTransitionStart() {
+                document.querySelectorAll('.services-swiper .swiper-slide').forEach((el) => {
+                  // trigger CSS transitions reliably
+                  // eslint-disable-next-line no-unused-expressions
+                  el.offsetHeight;
+                });
+              }
+            }
+          });
+
+        // Additional Services carousel (Swiper)
+        const additionalServicesSwiper = new Swiper('.additional-services-swiper', {
+          slidesPerView: 3,
+          spaceBetween: 20,
+          centeredSlides: true,
+          loop: true,
+          speed: 500,
+          navigation: {
+            prevEl: '.additional-services-prev',
+            nextEl: '.additional-services-next'
+          },
+          breakpoints: {
+            320: { slidesPerView: 1, spaceBetween: 16 },
+            576: { slidesPerView: 1, spaceBetween: 16 },
+            768: { slidesPerView: 1, spaceBetween: 18 },
+            992: { slidesPerView: 3, spaceBetween: 20 },
+            1200: { slidesPerView: 3, spaceBetween: 24 },
+          },
+          on: {
+            // force reflow of transforms for smooth ladder transitions
+            slideChangeTransitionStart() {
+              document.querySelectorAll('.additional-services-swiper .swiper-slide').forEach((el) => {
+                // trigger CSS transitions reliably
+                // eslint-disable-next-line no-unused-expressions
+                el.offsetHeight;
+              });
+            }
           }
-        }
-      });
+        });
 
       // Testimonials swiper - normal carousel with fixed height
       const testi = new Swiper('.testi-swiper', {
@@ -179,6 +209,98 @@
         ratio.appendChild(createYouTubeIframe(ytid));
       });
     });
+
+    // Vertical Scroll Features Functionality
+    const initVerticalScrollFeatures = () => {
+      const visualItems = document.querySelectorAll('.visual-item');
+      const carousel = document.querySelector('.vertical-scroll-container');
+      const ytContainers = document.querySelectorAll('.visual-yt');
+      
+      console.log('Vertical scroll elements found:', {
+        visualItems: visualItems.length,
+        carousel: !!carousel,
+        ytContainers: ytContainers.length
+      });
+      
+      if (!visualItems.length || !carousel) {
+        console.error('Required vertical scroll elements not found');
+        return;
+      }
+
+      // Prepare YouTube API
+      let YTReady = false;
+      const players = [];
+
+      const onYouTubeIframeAPIReadyLocal = () => {
+        YTReady = true;
+        ytContainers.forEach((container, i) => {
+          const ytid = container.getAttribute('data-ytid');
+          if (!ytid) return;
+          const params = new URLSearchParams({
+            autoplay: '1',
+            controls: '0',
+            mute: '1',
+            loop: '1',
+            rel: '0',
+            modestbranding: '1',
+            playsinline: '1',
+            enablejsapi: '1',
+            playlist: ytid
+          });
+          const iframe = document.createElement('iframe');
+          iframe.src = `https://www.youtube.com/embed/${ytid}?${params.toString()}`;
+          iframe.allow = 'autoplay; encrypted-media; gyroscope; picture-in-picture; web-share';
+          iframe.setAttribute('allowfullscreen', '');
+          container.innerHTML = '';
+          container.appendChild(iframe);
+        });
+      };
+
+      // Inject YT API script once
+      if (!window._ytApiInjected) {
+        const tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        document.head.appendChild(tag);
+        window._ytApiInjected = true;
+      }
+
+      // Global callback bridge
+      const prevOnYouTubeIframeAPIReady = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = function() {
+        if (typeof prevOnYouTubeIframeAPIReady === 'function') prevOnYouTubeIframeAPIReady();
+        onYouTubeIframeAPIReadyLocal();
+      };
+
+      // Helper to set which video should be visible/playing
+      let currentIndex = 0;
+      const setActiveIndex = (index) => {
+        currentIndex = index;
+        visualItems.forEach((item, i) => {
+          item.className = 'visual-item' + (i === index ? ' active' : '');
+        });
+      };
+
+      // Handle scroll events - matching vs.html exactly
+      const handleScroll = () => {
+        let proportion = carousel.getBoundingClientRect().top / window.innerHeight;
+        let index = Math.ceil(-1 * (proportion + 0.5));
+        index = Math.max(0, Math.min(index, visualItems.length - 1));
+        if (index !== currentIndex) setActiveIndex(index);
+      };
+
+      document.addEventListener('scroll', handleScroll, { passive: true });
+
+      // Initialize
+      setActiveIndex(0);
+
+      // Cleanup
+      return () => {
+        document.removeEventListener('scroll', handleScroll);
+      };
+    };
+
+          // Initialize vertical scroll features
+      initVerticalScrollFeatures();
   });
 
   // Expose a simple theme updater so you can change colors later from JS
